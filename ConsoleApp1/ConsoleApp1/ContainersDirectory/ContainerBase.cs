@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp1.ContainersDirectory;
 
-public class ContainerBase
+public abstract class ContainerBase
 {
     protected double CargoWeight;
     protected double Height;
@@ -19,4 +19,6 @@ public class ContainerBase
         SerialNumber = serialNumber;
         MaxPayload = maxPayload;
     }
+
+    public abstract void ReloadingContainers(double Cargo);
 }
