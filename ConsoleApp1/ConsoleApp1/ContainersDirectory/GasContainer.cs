@@ -1,21 +1,36 @@
-﻿using ConsoleApp1.Interfaces;
+﻿using ConsoleApp1.Exceptions;
+using ConsoleApp1.Interfaces;
 
 namespace ConsoleApp1.ContainersDirectory;
 
 public class GasContainer : ContainerBase, IHazardNotifier
 {
-    public GasContainer(double cargoWeight, double height, double soleWeight, double depth, double maxPayload) : base(cargoWeight, height, soleWeight, depth, maxPayload)
-    {
+    private double CargoPressure;
+    public GasContainer(double cargoWeight, double height, double soleWeight, double depth, double maxPayload, double cargoPressure) : base(cargoWeight, height, soleWeight, depth, maxPayload)
+    { 
+        CargoPressure = cargoPressure;
     }
 
     public override void ReloadingContainers(double Cargo)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (Cargo + CargoWeight > MaxPayload)
+            {
+                NotifyDanger();
+                throw new OverfillException("Adding this cargo will exceed the container maximum payload!\nInstead, we filled this container to its maximum.");
+            }
+        }
+        catch (OverfillException e)
+        {
+            CargoWeight = MaxPayload;
+            Console.WriteLine("Error: " + e.Message);
+        }
     }
 
     public override void EmptyingContainer()
     {
-        throw new NotImplementedException();
+        CargoWeight *= 0.05;
     }
 
     public void NotifyDanger()
