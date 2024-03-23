@@ -7,16 +7,17 @@ public abstract class ContainerBase
     protected double SoleWeight;
     protected double Depth;
     private static int number = 0;
-    protected string SerialNumber;
+    protected string SerialNumber { get; }
     protected double MaxPayload;
 
-    public ContainerBase(double cargoWeight, double height, double soleWeight, double depth, string serialNumber, double maxPayload)
+    public ContainerBase(double cargoWeight, double height, double soleWeight, double depth, double maxPayload)
     {
         CargoWeight = cargoWeight;
         Height = height;
         SoleWeight = soleWeight;
         Depth = depth;
-        SerialNumber = serialNumber;
+        number++;
+        SerialNumber = "KON-" + GetType().Name[0] + "-" + number;
         MaxPayload = maxPayload;
     }
 

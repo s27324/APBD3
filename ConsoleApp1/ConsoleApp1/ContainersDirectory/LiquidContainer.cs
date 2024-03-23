@@ -1,8 +1,10 @@
-﻿namespace ConsoleApp1.ContainersDirectory.LiquidContainers;
+﻿using ConsoleApp1.Interfaces;
 
-public class LiquidContainer : ContainerBase
+namespace ConsoleApp1.ContainersDirectory.LiquidContainers;
+
+public class LiquidContainer : ContainerBase, IHazardNotifier
 {
-    public LiquidContainer(double cargoWeight, double height, double soleWeight, double depth, string serialNumber, double maxPayload) : base(cargoWeight, height, soleWeight, depth, serialNumber, maxPayload)
+    public LiquidContainer(double cargoWeight, double height, double soleWeight, double depth, double maxPayload) : base(cargoWeight, height, soleWeight, depth, maxPayload)
     {}
 
     public override void ReloadingContainers(double Cargo)
@@ -12,5 +14,10 @@ public class LiquidContainer : ContainerBase
             //todo
             throw new NotImplementedException();
         }
+    }
+
+    public void NotifyDanger()
+    {
+        Console.WriteLine("Dangerous situation! Container No. " + SerialNumber);
     }
 }
