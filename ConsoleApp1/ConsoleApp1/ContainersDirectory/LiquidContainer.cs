@@ -1,4 +1,5 @@
-﻿using ConsoleApp1.Interfaces;
+﻿using ConsoleApp1.Exceptions;
+using ConsoleApp1.Interfaces;
 
 namespace ConsoleApp1.ContainersDirectory.LiquidContainers;
 
@@ -9,10 +10,14 @@ public class LiquidContainer : ContainerBase, IHazardNotifier
 
     public override void ReloadingContainers(double Cargo)
     {
-        if (Cargo > MaxPayload)
+        if (Cargo + CargoWeight > MaxPayload)
         {
-            //todo
-            throw new NotImplementedException();
+            throw new OverfillException("Adding this cargo will exceed the container maximum payload!");
+        }
+        else
+        {
+            CargoWeight += Cargo;
+            Console.WriteLine("Added a load weighing" + Cargo + " kg to container No. " + SerialNumber);
         }
     }
 
