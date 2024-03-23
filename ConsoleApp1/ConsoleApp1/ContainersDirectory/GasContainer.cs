@@ -13,6 +13,11 @@ public class GasContainer : ContainerBase, IHazardNotifier
         throw new NotImplementedException();
     }
 
+    public override void EmptyingContainer()
+    {
+        throw new NotImplementedException();
+    }
+
     public void NotifyDanger()
     {
         Console.WriteLine("Dangerous situation! Container No. " + SerialNumber);

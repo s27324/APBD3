@@ -22,4 +22,6 @@ public abstract class ContainerBase
     }
 
     public abstract void ReloadingContainers(double Cargo);
+
+    public abstract void EmptyingContainer();
 }
