@@ -48,6 +48,7 @@ public class LiquidContainer : ContainerBase, IHazardNotifier
     public override void EmptyingContainer()
     {
         CargoWeight = 0;
+        Console.WriteLine("Container No. " + SerialNumber + " was emptied.");
     }
 
     public void NotifyDanger()

@@ -11,15 +11,17 @@ public class GasContainer : ContainerBase, IHazardNotifier
         CargoPressure = cargoPressure;
     }
 
-    public override void ReloadingContainers(double Cargo)
+    public override void ReloadingContainers(double cargo)
     {
         try
         {
-            if (Cargo + CargoWeight > MaxPayload)
+            if (cargo + CargoWeight > MaxPayload)
             {
                 NotifyDanger();
                 throw new OverfillException("Adding this cargo will exceed the container maximum payload!\nInstead, we filled this container to its maximum.");
             }
+            CargoWeight += cargo;
+            Console.WriteLine("Added a load weighing " + cargo + " kg to container No. " + SerialNumber);
         }
         catch (OverfillException e)
         {
@@ -31,6 +33,7 @@ public class GasContainer : ContainerBase, IHazardNotifier
     public override void EmptyingContainer()
     {
         CargoWeight *= 0.05;
+        Console.WriteLine("Container No. " + SerialNumber + " was emptied.");
     }
 
     public void NotifyDanger()
