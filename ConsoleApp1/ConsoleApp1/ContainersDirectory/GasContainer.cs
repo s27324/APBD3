@@ -5,7 +5,7 @@ namespace ConsoleApp1.ContainersDirectory;
 
 public class GasContainer : ContainerBase, IHazardNotifier
 {
-    private double CargoPressure;
+    private double CargoPressure { get; set; }
     public GasContainer(double cargoWeight, double height, double soleWeight, double depth, double maxPayload, double cargoPressure) : base(cargoWeight, height, soleWeight, depth, maxPayload)
     { 
         CargoPressure = cargoPressure;
@@ -18,14 +18,13 @@ public class GasContainer : ContainerBase, IHazardNotifier
             if (cargo + CargoWeight > MaxPayload)
             {
                 NotifyDanger();
-                throw new OverfillException("Adding this cargo will exceed the container maximum payload!\nInstead, we filled this container to its maximum.");
+                throw new OverfillException("Adding this cargo will exceed the container maximum payload!");
             }
             CargoWeight += cargo;
             Console.WriteLine("Added a load weighing " + cargo + " kg to container No. " + SerialNumber);
         }
         catch (OverfillException e)
         {
-            CargoWeight = MaxPayload;
             Console.WriteLine("Error: " + e.Message);
         }
     }
@@ -39,5 +38,10 @@ public class GasContainer : ContainerBase, IHazardNotifier
     public void NotifyDanger()
     {
         Console.WriteLine("Dangerous situation! Container No. " + SerialNumber);
+    }
+
+    public override string ToString()
+    {
+        return "Gas container: " + base.ToString() + ", pressure: " + CargoPressure;
     }
 }

@@ -5,8 +5,8 @@ namespace ConsoleApp1.ContainersDirectory;
 
 public class CooledContainer : ContainerBase
 {
-    private string ProductType;
-    private double TempInside;
+    private string ProductType { get; set; }
+    private double TempInside { get; set; }
 
     private Dictionary<string, double> ListOfProducts = new Dictionary<string, double>()
     {
@@ -14,8 +14,8 @@ public class CooledContainer : ContainerBase
         { "Chocolate", 18 },
         { "Fish", 2 },
         { "Meat", -15 },
-        { "Ice cream", -18 },
-        { "Frozen pizza", -30 },
+        { "Ice_cream", -18 },
+        { "Frozen_pizza", -30 },
         { "Cheese", 7.2 },
         { "Sausages", 5 },
         { "Butter", 20.5 },
@@ -43,10 +43,10 @@ public class CooledContainer : ContainerBase
                 {
                     Console.WriteLine("[" + El.Key + "] " + El.Value);
                 }
-                string ChosenProduct = Console.ReadLine();
-                if (ListOfProducts.ContainsKey(ChosenProduct))
+                string chosenProduct = Console.ReadLine();
+                if (ListOfProducts.ContainsKey(chosenProduct))
                 {
-                    if (ProductType == ChosenProduct)
+                    if (ProductType == chosenProduct)
                     {
                         CargoWeight += cargo;
                         Console.WriteLine("Added a load weighing " + cargo + " kg to container No. " + SerialNumber);
@@ -66,7 +66,6 @@ public class CooledContainer : ContainerBase
         }
         catch (OverfillException e)
         {
-            CargoWeight = MaxPayload;
             Console.WriteLine("Error: " + e.Message);
         }
     }
@@ -75,5 +74,10 @@ public class CooledContainer : ContainerBase
     {
         CargoWeight = 0;
         Console.WriteLine("Container No. " + SerialNumber + " was emptied.");
+    }
+
+    public override string ToString()
+    {
+        return "Cooled container: " + base.ToString() + ", type of cargo: " + ProductType + ", temperature inside: " + TempInside;
     }
 }
